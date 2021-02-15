@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
-import Person from './components/Person';
-export default class App extends Component {
-  state = {
-    name: 'Hari',
-    job: 'Developer',
-  };
+import Banner from './components/Banner';
+import Deals from './components/Deals';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
-  changeJob = () => {
-    console.log('CLicked button');
-    this.setState({
-      job: 'Tester',
-    });
-  };
+export default class App extends Component {
   render() {
     return (
       <div>
-        <Person details={this.state} onJobChange={this.changeJob} />
+        <Navbar />
+        <Banner />
+        <Deals />
+        <Footer />
       </div>
     );
   }
 }
-
-// STate is mutable
-// Prop is immutable
