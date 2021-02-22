@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Card = ({ data, children }) => {
-  const { name, imageUrl, price, rating } = data;
+  const { name, imageUrl, price, rating, id } = data;
   return (
     <article className="bg-white mh3 ba b--black-10 mv4">
       <div className="pv2 ph3">
@@ -9,9 +10,9 @@ const Card = ({ data, children }) => {
       </div>
       <img src={imageUrl} className="w-100 db" alt={name} />
       <div className="pa3">
-        <a href="#" className="link dim lh-title">
+        <Link to={`/products/${id}`} className="link dim lh-title">
           Details
-        </a>
+        </Link>
 
         {children}
 

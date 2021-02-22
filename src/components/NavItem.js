@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const NavItem = ({ title, icon }) => {
+const NavItem = ({ title, icon, to }) => {
   return (
-    <a
+    <Link
       className="f6 f5-l link bg-animate black-80 
            hover-bg-lightest-blue dib pa3 ph4-l"
-      href="/"
+      to={to}
     >
       <span> {icon}</span> {title}
-    </a>
+    </Link>
   );
 };
 

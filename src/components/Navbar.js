@@ -19,10 +19,10 @@ const Navbar = () => {
         Awesome deals @ affordable prices
       </h2>
       <nav className="bt bb tc mw7 center mt4">
-        <NavItem title="Home" icon={<FaHome />} />
-        <NavItem title="FAQ" icon={<FaQuestionCircle />} />
-        <NavItem title="Contact Us" icon={<FaMailBulk />} />
-        <NavItem title="Cart" icon={<FaCartArrowDown />} />
+        <NavItem title="Home" icon={<FaHome />} to="/" />
+        <NavItem title="FAQ" icon={<FaQuestionCircle />} to="/faq" />
+        <NavItem title="Contact Us" icon={<FaMailBulk />} to="/contact" />
+        <NavItem title="Cart" icon={<FaCartArrowDown />} to="/cart" />
       </nav>
     </header>
   );

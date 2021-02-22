@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 
 //COntrolled components  / Uncontrolled
-//
+// setSTate is asynchronous.
+
 export default class SearchBar extends Component {
   state = {
     search: '',
   };
   handleInputChange = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
-    console.log(this.state.search);
+    this.setState(
+      {
+        search: e.target.value,
+      },
+      () => {
+        this.props.onSearch(this.state.search);
+      }
+    );
   };
   render() {
     return (
