@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   FaCartArrowDown,
   FaHome,
@@ -6,11 +6,13 @@ import {
   FaMailBulk,
   FaEvernote,
 } from 'react-icons/fa';
+import CurrencyContext from '../contexts/CurrencyContext';
 
 import Logo from './Logo';
 import NavItem from './NavItem';
 
 const Navbar = () => {
+  const { toggleCurrency } = useContext(CurrencyContext);
   return (
     <header className="bg-white black-80 tc pv4">
       <Logo icon={FaEvernote} color="#fff" />
@@ -23,6 +25,12 @@ const Navbar = () => {
         <NavItem title="FAQ" icon={<FaQuestionCircle />} to="/faq" />
         <NavItem title="Contact Us" icon={<FaMailBulk />} to="/contact" />
         <NavItem title="Cart" icon={<FaCartArrowDown />} to="/cart" />
+        <button
+          onClick={toggleCurrency}
+          className="f6 link dim br1 ph3 pv2 mb2 dib white bg-black"
+        >
+          Toggle Currency
+        </button>
       </nav>
     </header>
   );
