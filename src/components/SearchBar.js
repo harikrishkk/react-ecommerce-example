@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-
+import DealsContext from '../contexts/DealsContext';
 //COntrolled components  / Uncontrolled
 // setSTate is asynchronous.
 
 export default class SearchBar extends Component {
+  static contextType = DealsContext; // class
+  // const {} = React.useContext(DealsContext)  ==> functional
   state = {
     search: '',
   };
@@ -13,7 +15,8 @@ export default class SearchBar extends Component {
         search: e.target.value,
       },
       () => {
-        this.props.onSearch(this.state.search);
+        // this.props.onSearch(this.state.search);
+        this.context.setFilter(this.state.search);
       }
     );
   };

@@ -1,74 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Container from './layouts/Container';
 import Card from './Card';
 import Rating from './Rating';
 import SearchBar from './SearchBar';
 import Loader from './Loader';
-import axios from '../api/axios';
-import { withRouter } from 'react-router-dom';
+import DealsContext from '../contexts/DealsContext';
 
-class Deals extends Component {
-  state = {
-    products: [],
-    filterVal: '',
-    loading: false,
-  };
-  handleSearch = (val) => {
-    this.setState({ filterVal: val });
-  };
+const Deals = () => {
+  const { loading, products, filterVal } = React.useContext(DealsContext);
 
-  componentDidMount() {
-    console.log('DEALS ====>', this.props);
-    this.setState({
-      loading: true,
-    });
-    axios.get('/deals.json').then((res) => {
-      const products = [];
-      Object.keys(res.data).forEach((key) => {
-        const prod = {
-          ...res.data[key],
-          id: key,
-        };
-        products.push(prod);
-      });
+  const filteredDeals = products.filter((item) =>
+    item.name.toLowerCase().includes(filterVal.toLowerCase())
+  );
 
-      this.setState({
-        products,
-        loading: false,
-      });
-    });
+  if (loading) {
+    return <Loader />;
   }
+  return (
+    <div>
+      <header className="tc ph4">
+        <h1 className=" ttu f3 black-90 mv3">Deal of the day</h1>
+      </header>
+      <Container>
+        <SearchBar />
+        <section className="flex flex-wrap">
+          {filteredDeals.map((product) => {
+            const { id, rating } = product;
+            return (
+              <Card key={id} data={product}>
+                <Rating rating={rating} />
+              </Card>
+            );
+          })}
+        </section>
+      </Container>
+    </div>
+  );
+};
 
-  render() {
-    const { products, filterVal } = this.state;
-    const filteredProducts = products.filter((item) => {
-      return item.name.toLowerCase().includes(filterVal.toLowerCase());
-    });
-    if (this.state.loading) {
-      return <Loader />;
-    }
-    return (
-      <div>
-        <header className="tc ph4">
-          <h1 className=" ttu f3 black-90 mv3">Deal of the day</h1>
-        </header>
-        <Container>
-          <SearchBar onSearch={this.handleSearch} />
-          <section className="flex flex-wrap">
-            {filteredProducts.map((product) => {
-              const { id, rating } = product;
-              return (
-                <Card key={id} data={product}>
-                  <Rating rating={rating} />
-                </Card>
-              );
-            })}
-          </section>
-        </Container>
-      </div>
-    );
-  }
-}
-
-export default withRouter(Deals);
+export default Deals;

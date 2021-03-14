@@ -10,6 +10,7 @@ import CurrencyContext from '../contexts/CurrencyContext';
 
 import Logo from './Logo';
 import NavItem from './NavItem';
+import CartCount from '../components/CartCount';
 
 const Navbar = () => {
   const { toggleCurrency } = useContext(CurrencyContext);
@@ -24,7 +25,7 @@ const Navbar = () => {
         <NavItem title="Home" icon={<FaHome />} to="/" />
         <NavItem title="FAQ" icon={<FaQuestionCircle />} to="/faq" />
         <NavItem title="Contact Us" icon={<FaMailBulk />} to="/contact" />
-        <NavItem title="Cart" icon={<FaCartArrowDown />} to="/cart" />
+        <CartCount title="Cart" to="/cart" icon={<FaCartArrowDown />} />
         <button
           onClick={toggleCurrency}
           className="f6 link dim br1 ph3 pv2 mb2 dib white bg-black"

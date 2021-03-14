@@ -39,3 +39,14 @@ body {
     transform: rotate(1800deg);
   }
 }
+
+/* Shopping cart*/
+.cart-total {
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  text-align: center;
+  font-size: 15px;
+  margin-left: 10px;
+}

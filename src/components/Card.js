@@ -9,7 +9,6 @@ const Card = ({ data, children }) => {
   return (
     <CurrencyContext.Consumer>
       {(ctx) => {
-        console.log('COntext changed????', ctx);
         return (
           <article className="bg-white mh3 ba b--black-10 mv4">
             <div className="pv2 ph3">
