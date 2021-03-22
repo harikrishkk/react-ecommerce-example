@@ -5,17 +5,25 @@ import Card from './Card';
 import Rating from './Rating';
 import SearchBar from './SearchBar';
 import Loader from './Loader';
-import DealsContext from '../contexts/DealsContext';
+import { connect, useSelector } from 'react-redux';
+
+import {
+  selectFilteredDeals,
+  selectLoadingStatus,
+  selectLoadingError,
+} from '../redux-state/dealsReducer';
 
 const Deals = () => {
-  const { loading, products, filterVal } = React.useContext(DealsContext);
-
-  const filteredDeals = products.filter((item) =>
-    item.name.toLowerCase().includes(filterVal.toLowerCase())
-  );
+  const filteredDeals = useSelector(selectFilteredDeals);
+  const loading = useSelector(selectLoadingStatus);
+  const error = useSelector(selectLoadingError);
 
   if (loading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return <h1> Loading failed SHow alert message ... </h1>;
   }
   return (
     <div>

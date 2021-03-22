@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import Container from './layouts/Container';
 import Loader from './Loader';
 import { Link } from 'react-router-dom';
-import DealsContext from '../contexts/DealsContext';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import {
+  selectDealById,
+  selectLoadingStatus,
+} from '../redux-state/dealsReducer';
+import { addToCart } from '../redux-state/cartActions';
 
 const DealsDetails = (props) => {
-  const { products, loading, addToCart } = React.useContext(DealsContext);
   const id = props.match.params.id;
-  const deal = products.find((prod) => prod.id === id);
+  const loading = useSelector(selectLoadingStatus);
+  const deal = useSelector(selectDealById(id));
+  const dispatch = useDispatch();
 
   if (loading || !deal) {
     return <Loader />;
   }
 
   const handleCart = () => {
-    addToCart(deal);
+    dispatch(addToCart(deal));
   };
 
   return (

@@ -1,11 +1,21 @@
 import React from 'react';
-import DealsContext from '../contexts/DealsContext';
+
 import CurrencyContext from '../contexts/CurrencyContext';
 import { formatMoney } from '../utils/format-money';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCartItems, getCartTotal } from '../redux-state/cartReducer';
+import { removeItemFromCart } from '../redux-state/cartActions';
 
 const Cart = () => {
-  const { cart, removeFromCart } = React.useContext(DealsContext);
   const { currency } = React.useContext(CurrencyContext);
+  const cart = useSelector(selectCartItems);
+  const cartTotal = useSelector(getCartTotal);
+  const dispatch = useDispatch();
+
+  const handleRemoveCart = (item) => {
+    dispatch(removeItemFromCart(item.id));
+    // removeItemFromCart(item.id)
+  };
 
   if (cart.length === 0) {
     return (
@@ -14,13 +24,6 @@ const Cart = () => {
       </h1>
     );
   }
-
-  const cartTotal = () => {
-    const amount = cart.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
-    return formatMoney(currency, amount);
-  };
 
   return (
     <>
@@ -46,7 +49,7 @@ const Cart = () => {
                     className="f6 button-reset bg-white ba 
                  b--black-10 dim pointer pv1 black-60"
                     type="button"
-                    onClick={() => removeFromCart(item)}
+                    onClick={() => handleRemoveCart(item)}
                   >
                     Remove One From Cart
                   </button>
@@ -58,7 +61,7 @@ const Cart = () => {
       })}
       <div className="mw6 center">
         <p className="tr">
-          Total is: <strong> {cartTotal()} </strong>
+          Total is: <strong> {formatMoney(currency, cartTotal)} </strong>
         </p>
       </div>
     </>

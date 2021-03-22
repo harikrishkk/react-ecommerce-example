@@ -43,3 +43,12 @@ export const loadDealsFail = (error) => {
     },
   };
 };
+
+export const searchProducts = (filterVal) => {
+  return {
+    type: actions.SEARCH_PRODUCTS,
+    payload: {
+      filterVal,
+    },
+  };
+};

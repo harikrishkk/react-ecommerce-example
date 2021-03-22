@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import DealsContext from '../contexts/DealsContext';
+import { searchProducts } from '../redux-state/actions';
+import { connect } from 'react-redux';
+
 //COntrolled components  / Uncontrolled
 // setSTate is asynchronous.
 
-export default class SearchBar extends Component {
-  static contextType = DealsContext; // class
+class SearchBar extends Component {
+  // static contextType = DealsContext; // class
   // const {} = React.useContext(DealsContext)  ==> functional
   state = {
     search: '',
@@ -16,7 +18,8 @@ export default class SearchBar extends Component {
       },
       () => {
         // this.props.onSearch(this.state.search);
-        this.context.setFilter(this.state.search);
+        // this.context.setFilter(this.state.search);
+        this.props.searchProducts(this.state.search);
       }
     );
   };
@@ -49,3 +52,5 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+export default connect(null, { searchProducts })(SearchBar);

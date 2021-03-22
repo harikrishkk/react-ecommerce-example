@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DealsContext from '../contexts/DealsContext';
+import { selectCartItemsCount } from '../redux-state/cartReducer';
+import { useSelector } from 'react-redux';
 
 const CartCount = ({ title, icon, to }) => {
-  const context = React.useContext(DealsContext);
-  const count = context.cart.reduce((acc, item) => {
-    return item.quantity + acc;
-  }, 0);
+  const cartCount = useSelector(selectCartItemsCount);
   return (
     <Link
       className="f6 f5-l link bg-animate black-80 
@@ -14,7 +12,7 @@ const CartCount = ({ title, icon, to }) => {
       to={to}
     >
       <span> {icon}</span> {title}
-      <span className="cart-total"> {count} </span>
+      <span className="cart-total"> {cartCount} </span>
     </Link>
   );
 };
